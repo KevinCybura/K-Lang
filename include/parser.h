@@ -13,7 +13,7 @@ struct CurTok {
     std::string IdentifierStr = "";
     double NumVal = 0.0;
     int LastChar = ' ';
-    std::ifstream file;
+    std::fstream file;
 };
 
 void MainLoop(CurTok &x);

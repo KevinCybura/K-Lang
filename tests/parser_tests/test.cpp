@@ -2,8 +2,20 @@
 // Created by kevin Cybura on 2019-02-25.
 //
 
+#include <fstream>
 #include "gtest/gtest.h"
+#include "lexer.h"
+#include "parser.h"
+#include <string>
 
-TEST(basic_check, test_eq) { EXPECT_EQ(1, 1); }
+using namespace std::string_literals;
 
-TEST(basic_check, test_neq) { EXPECT_NE(1, 0); }
+TEST(lexer_test, lexer) {
+    std::fstream file("./lang.k"s);
+    file << "def";
+    CurTok x = CurTok{};
+    x.file = std::move(file);
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "def");
+    std::remove("lang.k");
+}

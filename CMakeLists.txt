@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(K_Lang)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
+find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(LLVM REQUIRED CONFIG)
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
@@ -19,3 +23,9 @@ target_include_directories(K_Lang PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(K_Lang ${llvm_libs} PRIVATE parser_lib)
 
 add_subdirectory(tests)
+set_target_properties(K_Lang
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/lib"
+        LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/lib"
+        RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
+        )

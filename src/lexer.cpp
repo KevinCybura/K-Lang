@@ -3,7 +3,7 @@
 //
 #include "lexer.h"
 
-int getChar(std::ifstream& file) { return file.get(); }
+int getChar(std::fstream& file) { return file.get(); }
 /// gettok - Return the next token from standard input.
 int gettok(CurTok& x) {
     // Skip any whitespace.
