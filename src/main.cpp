@@ -4,10 +4,13 @@
 #include "AST.h"
 #include "lexer.h"
 #include "parser.h"
+#include <fstream>
 
-int main() {
-	fprintf(stderr, "ready> ");
+int main(int argc, char* argv[]) {
+	std::ifstream file(argv[1]);
+	char str[5];
 	CurTok x = CurTok{};
+	x.file = std::move(file);
 	getNextToken(x);
 
 	MainLoop(x);

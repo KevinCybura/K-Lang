@@ -6,12 +6,14 @@
 #include <map>
 #include <memory>
 #include "AST.h"
+#include <fstream>
 
 struct CurTok {
     int cur = 0;
     std::string IdentifierStr = "";
     double NumVal = 0.0;
     int LastChar = ' ';
+    std::ifstream file;
 };
 
 void MainLoop(CurTok &x);

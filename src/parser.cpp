@@ -190,23 +190,27 @@ void HandleDefinition(CurTok& x) {
 
 void MainLoop(CurTok& x) {
     while (true) {
-        fprintf(stderr, "ready> ");
+        // fprintf(stderr, "ready> ");
         switch (x.cur) {
             case tok_eof:
+		fprintf(stderr, "EOF\n");
                 return;
             case ';':
+		fprintf(stderr, "handle ;\n");
                 getNextToken(x);
                 break;
             case tok_def:
+		fprintf(stderr, "HandleDefinition\n");
                 HandleDefinition(x);
                 break;
             case tok_extern:
+		fprintf(stderr, "HandleExtern\n");
                 HandleExtern(x);
                 break;
             default:
+		fprintf(stderr, "HandleTopLevelExpression\n");
                 HandleTopLevelExpression(x);
                 break;
         }
     }
 }
-

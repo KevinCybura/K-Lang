@@ -20,5 +20,6 @@ enum Token {
     tok_number = -5,
 };
 
+int getChar(std::ifstream& file);
 int gettok(CurTok& x);
 bool isOp(int c) ;
