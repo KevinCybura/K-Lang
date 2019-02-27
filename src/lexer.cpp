@@ -9,7 +9,8 @@ int gettok(CurTok& x) {
     // Skip any whitespace.
     while (isspace(x.LastChar)) x.LastChar = getChar(x.file);
 
-    // First parse numbers because other identifiers shouldnt start with a number.
+    // First parse numbers because other identifiers shouldnt start with a
+    // number.
     if (isdigit(x.LastChar) || x.LastChar == '.') {  // Number: [0-9.]+
         std::string NumStr;
         do {
@@ -24,7 +25,8 @@ int gettok(CurTok& x) {
     // Parse keywords/variables.
     if (isalpha(x.LastChar)) {  // identifier: [a-zA-Z][a-zA-Z0-9]*
         x.IdentifierStr = x.LastChar;
-        while (isalnum((x.LastChar = getChar(x.file)))) x.IdentifierStr += x.LastChar;
+        while (isalnum((x.LastChar = getChar(x.file))))
+            x.IdentifierStr += x.LastChar;
 
         if (x.IdentifierStr == "def") return tok_def;
         if (x.IdentifierStr == "extern") return tok_extern;
@@ -42,9 +44,9 @@ int gettok(CurTok& x) {
     }
 
     // Parse operator
-    if(isOp(x.LastChar)) {
-	    x.LastChar = getChar(x.file);
-	    return tok_identifier;
+    if (isOp(x.LastChar)) {
+        x.LastChar = getChar(x.file);
+        return tok_identifier;
     }
 
     // Ignore comments
@@ -68,11 +70,11 @@ bool isOp(int c) {
     switch (c) {
         case '+':
             return true;
-	case '-':
-	    return true;
-	case '*':
-	    return true;
-	default:
-	    return false;
+        case '-':
+            return true;
+        case '*':
+            return true;
+        default:
+            return false;
     }
 }
