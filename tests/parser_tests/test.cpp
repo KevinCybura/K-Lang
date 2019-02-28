@@ -39,5 +39,54 @@ TEST(lexer_parse_ident, should_parser_def_with_extra_chars) {
     x.file = std::move(temp_file("def()"s));
     getNextToken(x);
     EXPECT_EQ(x.IdentifierStr, "def");
+    getNextToken(x);
+    EXPECT_EQ(x.cur, static_cast<int>('('));
+    getNextToken(x);
+    EXPECT_EQ(x.cur, static_cast<int>(')'));
     std::remove("lang.k");
 }
+
+TEST(lexer_parse_ident, should_parse_function_signiture) {
+    CurTok x = CurTok{};
+    x.file = std::move(temp_file("def foo(x y)"s));
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "def");
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "foo");
+    getNextToken(x);
+    EXPECT_EQ(x.cur, static_cast<int>('('));
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "x");
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "y");
+    getNextToken(x);
+    EXPECT_EQ(x.cur, static_cast<int>(')'));
+    std::remove("lang.k");
+}
+
+TEST(parser_tests, should_parse_proto) {
+    CurTok x = CurTok{};
+    x.file = std::move(temp_file("def foo()"s));
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "def");
+    getNextToken(x);
+    EXPECT_EQ(x.IdentifierStr, "foo");
+    auto proto = ParseProtpye(x);
+    ASSERT_NE(proto, nullptr);
+    EXPECT_EQ(proto->getName(), "foo");
+    EXPECT_EQ(proto->numArgs(), 0);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
